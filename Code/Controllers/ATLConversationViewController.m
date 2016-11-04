@@ -36,7 +36,6 @@
 
 @interface ATLConversationViewController () <UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate>
 
-@property (nonatomic) ATLConversationDataSource *conversationDataSource;
 @property (nonatomic, readwrite) LYRQueryController *queryController;
 @property (nonatomic) BOOL shouldDisplayAvatarItem;
 @property (nonatomic) NSMutableOrderedSet *typingParticipantIDs;

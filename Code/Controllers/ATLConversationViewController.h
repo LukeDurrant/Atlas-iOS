@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, ATLAvatarItemDisplayFrequency) {
 };
 
 @class ATLConversationViewController;
+@class ATLConversationDataSource;
 @protocol ATLMessagePresenting;
 
 ///---------------------------------------
@@ -222,6 +223,11 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract The `LYRConversation` object whose messages will be displayed in the controller.
  */
 @property (nonatomic) LYRConversation *conversation;
+
+/**
+ @abstract The `ATLConversationDataSource` responsible for managing the data to be displayed in the controller.
+ */
+@property (nonatomic) ATLConversationDataSource *conversationDataSource;
 
 /**
  @abstract The `LYRQueryController` object managing data displayed in the controller.
