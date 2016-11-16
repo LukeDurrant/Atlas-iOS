@@ -356,6 +356,16 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     return cell;
 }
 
+/**
+ Atlas - will display a subclass of `ATLMessageCollectionViewCell` to be displayed on screen. `Atlas` supports both `ATLIncomingMessageCollectionViewCell` and `ATLOutgoingMessageCollectionViewCell`.
+ */
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(conversationViewController:willDisplayCell:forMessage:)]) {
+        LYRMessage *message = [self.conversationDataSource messageAtCollectionViewIndexPath:indexPath];
+        [self.delegate conversationViewController:self willDisplayCell:cell forMessage:message];
+    }
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
