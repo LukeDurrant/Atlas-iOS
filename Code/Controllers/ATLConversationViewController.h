@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param message The `LYRMessage` object that will be displayed in the cell.
  @discussion Applications should implement this method if they want add further configuration
  */
-- (void)conversationViewController:(ATLConversationViewController *)conversationViewController willDisplayCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:(LYRMessage *)message;
+- (void)conversationViewController:(ATLConversationViewController *)conversationViewController willDisplayCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:(LYRMessage *)message forIndexPath:(NSIndexPath*)indexPath;
 
 /**
  @abstract Asks the delegate for an `NSOrderedSet` of `LYRMessage` objects representing an `NSArray` of content parts.
