@@ -543,26 +543,17 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
 
 - (NSMutableArray *)insertedRowIndexPaths
 {
-    if (_insertedRowIndexPaths == nil) {
-        _insertedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _insertedRowIndexPaths;
+    return _insertedRowIndexPaths ?: (_insertedRowIndexPaths = [[NSMutableArray alloc] init]);
 }
 
 - (NSMutableArray *)deletedRowIndexPaths
 {
-    if (_deletedRowIndexPaths == nil) {
-        _deletedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _deletedRowIndexPaths;
+    return _deletedRowIndexPaths ?: (_deletedRowIndexPaths = [[NSMutableArray alloc] init]);
 }
 
 - (NSMutableArray *)updatedRowIndexPaths
 {
-    if (_updatedRowIndexPaths == nil) {
-        _updatedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _updatedRowIndexPaths;
+    return _updatedRowIndexPaths ?: (_updatedRowIndexPaths = [[NSMutableArray alloc] init]);
 }
 
 #pragma mark - UIScrollViewDelegate
