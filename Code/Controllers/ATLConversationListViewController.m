@@ -523,8 +523,13 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
 
 - (void)queryControllerDidChangeContent:(LYRQueryController *)queryController
 {
-    [self.tableView endUpdates];
-
+    @try {
+        [self.tableView endUpdates];
+    }
+    @catch ( NSException *e ) {
+        [self.tableView reloadData];
+    }
+    
     [self configureLoadingMoreConversationsIndicatorView];
 
     if (self.conversationSelectedBeforeContentChange) {
