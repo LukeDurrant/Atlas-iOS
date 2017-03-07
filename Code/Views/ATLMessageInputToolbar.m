@@ -137,12 +137,6 @@ static CGFloat const ATLButtonHeight = 28.0f;
         CGRect windowRect = [self.containerViewController.view.superview convertRect:self.containerViewController.view.frame toView:nil];
         frame.size.width = windowRect.size.width;
         frame.origin.x = windowRect.origin.x;
-        
-        CGFloat bottomPadding = self.containerViewController.tabBarController.tabBar.frame.size.height;
-        
-        if (bottomPadding && !self.textInputView.isFirstResponder) {
-            frame.origin.y = -bottomPadding;
-        }
     }
     
     leftButtonFrame.size.height = ATLButtonHeight;
