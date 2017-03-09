@@ -63,7 +63,6 @@ static NSString *const ATLDefaultPushAlertImage = @"sent you a photo.";
 static NSString *const ATLDefaultPushAlertLocation = @"sent you a location.";
 static NSString *const ATLDefaultPushAlertVideo = @"sent you a video.";
 static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
-static NSInteger const ATLPhotoActionSheet = 1000;
 
 + (NSCache *)sharedMediaAttachmentCache
 {
@@ -599,17 +598,32 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 
 - (void)messageInputToolbar:(ATLMessageInputToolbar *)messageInputToolbar didTapLeftAccessoryButton:(UIButton *)leftAccessoryButton
 {
-    if (messageInputToolbar.textInputView.isFirstResponder) {
-        [messageInputToolbar.textInputView resignFirstResponder];
-    }
+    [self.view endEditing:YES];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.cancel.key", @"Cancel", nil)
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.takephoto.key", @"Take Photo/Video", nil), ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.lastphoto.key", @"Last Photo/Video", nil), ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.library.key", @"Photo/Video Library", nil), nil];
-    [actionSheet showInView:self.view];
-    actionSheet.tag = ATLPhotoActionSheet;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.cancel.key", @"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:cancelAction];
+    
+    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.takephoto.key", @"Take Photo/Video", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera messageInputToolbar:messageInputToolbar];
+    }];
+    [alertController addAction:takePhoto];
+    
+    UIAlertAction *lastPhoto = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.lastphoto.key", @"Last Photo/Video", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self captureLastPhotoTaken:messageInputToolbar];
+    }];
+    [alertController addAction:lastPhoto];
+    
+    UIAlertAction *photoLibraryAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.library.key", @"Photo/Video Library", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary messageInputToolbar:messageInputToolbar];
+    }];
+    [alertController addAction:photoLibraryAction];
+    alertController.popoverPresentationController.sourceRect = messageInputToolbar.leftAccessoryButton.frame;
+    alertController.popoverPresentationController.sourceView = messageInputToolbar.leftAccessoryButton;
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)messageInputToolbar:(ATLMessageInputToolbar *)messageInputToolbar didTapRightAccessoryButton:(UIButton *)rightAccessoryButton
@@ -724,35 +738,10 @@ static NSInteger const ATLPhotoActionSheet = 1000;
     [self sendMessage:message];
 }
 
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet.tag == ATLPhotoActionSheet) {
-        switch (buttonIndex) {
-            case 0:
-                [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
-                break;
-                
-            case 1:
-                [self captureLastPhotoTaken];
-                break;
-                
-            case 2:
-                [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
 #pragma mark - Image Picking
 
-- (void)displayImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType;
+- (void)displayImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType messageInputToolbar:(ATLMessageInputToolbar*)messageInputToolbar
 {
-    [self.messageInputToolbar.textInputView resignFirstResponder];
     BOOL pickerSourceTypeAvailable = [UIImagePickerController isSourceTypeAvailable:sourceType];
     if (pickerSourceTypeAvailable) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -760,18 +749,21 @@ static NSInteger const ATLPhotoActionSheet = 1000;
         picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
         picker.sourceType = sourceType;
         picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
-        [self.navigationController presentViewController:picker animated:YES completion:nil];
+        [self.navigationController presentViewController:picker animated:YES completion:^{
+            [messageInputToolbar becomeFirstResponder];
+        }];
     }
 }
 
-- (void)captureLastPhotoTaken
+- (void)captureLastPhotoTaken:(ATLMessageInputToolbar*)messageInputToolbar
 {
     ATLAssetURLOfLastPhotoTaken(^(NSURL *assetURL, NSError *error) {
         if (error) {
             NSLog(@"Failed to capture last photo with error: %@", [error localizedDescription]);
         } else {
             ATLMediaAttachment *mediaAttachment = [ATLMediaAttachment mediaAttachmentWithAssetURL:assetURL thumbnailSize:ATLDefaultThumbnailSize];
-            [self.messageInputToolbar insertMediaAttachment:mediaAttachment withEndLineBreak:YES];
+            [messageInputToolbar insertMediaAttachment:mediaAttachment withEndLineBreak:YES];
+            [messageInputToolbar becomeFirstResponder];
         }
     });
 }
@@ -800,7 +792,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
         [self.messageInputToolbar insertMediaAttachment:mediaAttachment withEndLineBreak:YES];
     }
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    [self.view becomeFirstResponder];
+    //[self.view becomeFirstResponder];
     
     // Workaround for collection view not displayed on iOS 7.1.
     [self.collectionView setNeedsLayout];
@@ -809,7 +801,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    [self.view becomeFirstResponder];
+    //[self.view becomeFirstResponder];
     
     // Workaround for collection view not displayed on iOS 7.1.
     [self.collectionView setNeedsLayout];
