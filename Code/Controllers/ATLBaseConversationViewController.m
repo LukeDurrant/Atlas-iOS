@@ -28,6 +28,7 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 @property (nonatomic) NSMutableArray *typingParticipantIDs;
 @property (nonatomic) NSLayoutConstraint *typingIndicatorViewBottomConstraint;
+@property (nonatomic) NSLayoutConstraint *messageInputViewBottomConstraint;
 @property (nonatomic) CGFloat keyboardHeight;
 @property (nonatomic, getter=isFirstAppearance) BOOL firstAppearance;
 
@@ -37,6 +38,7 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 static CGFloat const ATLTypingIndicatorHeight = 20;
 static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
+static CGFloat const ATLMaxMessageInputHeight = 100;
 
 - (id)init
 {
@@ -67,14 +69,7 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 {
     [super viewDidLoad];
     
-    // Add message input tool bar
-    self.messageInputToolbar = [self initializeMessageInputToolbar];
-    // Fixes an ios9 bug that causes the background of the input accessory view to be black when being presented on screen.
-    self.messageInputToolbar.translucent = NO;
-    // An apparent system bug causes a view controller to not be deallocated
-    // if the view controller's own inputAccessoryView property is used.
-    self.view.inputAccessoryView = self.messageInputToolbar;
-    self.messageInputToolbar.containerViewController = self;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // Add typing indicator
     self.typingIndicatorController = [[ATLTypingIndicatorViewController alloc] init];
@@ -82,6 +77,19 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     [self.view addSubview:self.typingIndicatorController.view];
     [self.typingIndicatorController didMoveToParentViewController:self];
     [self configureTypingIndicatorLayoutConstraints];
+    //TODO Fix typing indicator being behind the message input toolbar
+    
+    // Add message input tool bar
+    self.messageInputToolbar = [self initializeMessageInputToolbar];
+    self.messageInputToolbar.containerToolbar = [self initializeMessageInputToolbar];
+    self.messageInputToolbar.containerToolbar.isContainerToolbar = YES;
+    
+    [self.view addSubview:self.messageInputToolbar.containerToolbar];
+    //no longer part of the input accessory view why? because tab bar
+    self.messageInputToolbar.containerViewController = self;
+    
+    self.messageInputToolbar.containerToolbar.textInputView.inputAccessoryView = self.messageInputToolbar;
+    [self configureMessageInputLayoutConstraints];
     
     // Add address bar if needed
     if (self.displaysAddressBar) {
@@ -102,11 +110,12 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     // Workaround for a modal dismissal causing the message toolbar to remain offscreen on iOS 8.
-    if (self.presentedViewController) {
-        [self.view becomeFirstResponder];
-    }
+    //if (self.presentedViewController) {
+    //    [self.view becomeFirstResponder];
+    //}
+    
     if (self.addressBarController && self.firstAppearance) {
         [self updateTopCollectionViewInset];
     }
@@ -125,11 +134,11 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-
+    
     // To get the toolbar to slide onscreen with the view controller's content, we have to make the view the
     // first responder here. Even so, it will not animate on iOS 8 the first time.
     if (!self.presentedViewController && self.navigationController && !self.view.inputAccessoryView.superview) {
-        [self.view becomeFirstResponder];
+        //[self.view becomeFirstResponder];
     }
     
     if (self.isFirstAppearance) {
@@ -229,15 +238,25 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     if ([[self navigationController] modalPresentationStyle] == UIModalPresentationPopover) {
         return;
     }
+    self.messageInputToolbar.hidden = NO;
+    self.messageInputToolbar.containerToolbar.hidden = YES;
     [self configureWithKeyboardNotification:notification];
+    
+    if (self.presentedViewController == nil) {
+        [self.messageInputToolbar becomeFirstResponder];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    self.messageInputToolbar.containerToolbar.hidden = NO;
+    self.messageInputToolbar.hidden = YES;
     if (![self.navigationController.viewControllers containsObject:self]) {
         return;
     }
     [self configureWithKeyboardNotification:notification];
+    
+    self.messageInputToolbar.containerToolbar.textInputView.attributedText = self.messageInputToolbar.textInputView.attributedText;
 }
 
 - (void)messageInputToolbarDidChangeHeight:(NSNotification *)notification
@@ -344,6 +363,18 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.typingIndicatorController.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:ATLTypingIndicatorHeight]];
     self.typingIndicatorViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.typingIndicatorController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
     [self.view addConstraint:self.typingIndicatorViewBottomConstraint];
+}
+
+
+- (void)configureMessageInputLayoutConstraints
+{
+    // Dummy Message Input
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:ATLMaxMessageInputHeight]];
+    self.messageInputViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    [self.view addConstraint:self.messageInputViewBottomConstraint];
 }
 
 - (void)configureAddressbarLayoutConstraints
