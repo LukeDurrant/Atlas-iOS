@@ -171,6 +171,8 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  */
 @property (nonatomic, readonly, nullable) NSArray <ATLMediaAttachment*> *mediaAttachments;
 
+@property (nonatomic) BOOL isContainerToolbar;
+
 //-------------------
 // Layout Accessories
 //-------------------
@@ -181,6 +183,8 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  to support UISplitViewController usage.  This property should only be set when subclassing `ATLMessageInputToolbar`.
  */
 @property (nonatomic, weak) UIViewController *containerViewController;
+
+@property (nonatomic, nonnull) ATLMessageInputToolbar *containerToolbar;
 
 @end
 NS_ASSUME_NONNULL_END
