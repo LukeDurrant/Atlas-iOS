@@ -26,7 +26,6 @@
 #import "ATLConstants.h"
 #import "ATLDataSourceChange.h"
 #import "ATLMessagingUtilities.h"
-#import "ATLConversationView.h"
 #import "ATLConversationDataSource.h"
 #import "ATLMediaAttachment.h"
 #import "ATLLocationManager.h"
