@@ -211,6 +211,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.textViewMaxHeight = self.maxNumberOfLines * self.textInputView.font.lineHeight;
     self.textViewMinScrollHeight = (self.maxNumberOfLines - 1) * self.textInputView.font.lineHeight;
     [self setNeedsLayout];
+    self.containerToolbar.maxNumberOfLines = maxNumberOfLines;
 }
 
 - (void)insertMediaAttachment:(ATLMediaAttachment *)mediaAttachment withEndLineBreak:(BOOL)endLineBreak;
@@ -238,6 +239,9 @@ static CGFloat const ATLButtonHeight = 28.0f;
     }
     [self setNeedsLayout];
     [self configureRightAccessoryButtonState];
+    
+    [self.containerToolbar insertMediaAttachment:mediaAttachment withEndLineBreak:endLineBreak];
+    
 }
 
 - (NSArray *)mediaAttachments
@@ -254,30 +258,58 @@ static CGFloat const ATLButtonHeight = 28.0f;
 {
     _leftAccessoryImage = leftAccessoryImage;
     [self.leftAccessoryButton setImage:leftAccessoryImage  forState:UIControlStateNormal];
+    
+    self.containerToolbar.leftAccessoryImage = leftAccessoryImage;
 }
 
 - (void)setRightAccessoryImage:(UIImage *)rightAccessoryImage
 {
     _rightAccessoryImage = rightAccessoryImage;
     [self.rightAccessoryButton setImage:rightAccessoryImage forState:UIControlStateNormal];
+    
+    self.containerToolbar.rightAccessoryImage = rightAccessoryImage;
 }
 
 - (void)setRightAccessoryButtonActiveColor:(UIColor *)rightAccessoryButtonActiveColor
 {
     _rightAccessoryButtonActiveColor = rightAccessoryButtonActiveColor;
     [self.rightAccessoryButton setTitleColor:rightAccessoryButtonActiveColor forState:UIControlStateNormal];
+    
+    self.containerToolbar.rightAccessoryButtonActiveColor = rightAccessoryButtonActiveColor;
 }
 
 - (void)setRightAccessoryButtonDisabledColor:(UIColor *)rightAccessoryButtonDisabledColor
 {
     _rightAccessoryButtonDisabledColor = rightAccessoryButtonDisabledColor;
     [self.rightAccessoryButton setTitleColor:rightAccessoryButtonDisabledColor forState:UIControlStateDisabled];
+    
+    self.containerToolbar.rightAccessoryButtonDisabledColor = rightAccessoryButtonDisabledColor;
 }
 
 - (void)setRightAccessoryButtonFont:(UIFont *)rightAccessoryButtonFont
 {
     _rightAccessoryButtonFont = rightAccessoryButtonFont;
     [self.rightAccessoryButton.titleLabel setFont:rightAccessoryButtonFont];
+    
+    self.containerToolbar.rightAccessoryButtonFont = rightAccessoryButtonFont;
+}
+
+-(void)setDisplaysRightAccessoryImage:(BOOL)displaysRightAccessoryImage
+{
+    _displaysRightAccessoryImage = displaysRightAccessoryImage;
+    self.containerToolbar.displaysRightAccessoryImage = displaysRightAccessoryImage;
+}
+
+-(void)setVerticalMargin:(CGFloat)verticalMargin
+{
+    _verticalMargin = verticalMargin;
+    self.containerToolbar.verticalMargin = verticalMargin;
+}
+
+-(void)setInputToolBarDelegate:(id<ATLMessageInputToolbarDelegate>)inputToolBarDelegate {
+    _inputToolBarDelegate = inputToolBarDelegate;
+    
+    self.containerToolbar.inputToolBarDelegate = inputToolBarDelegate;
 }
 
 #pragma mark - Actions
@@ -295,6 +327,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     }
     [self.inputToolBarDelegate messageInputToolbar:self didTapRightAccessoryButton:self.rightAccessoryButton];
     self.textInputView.text = @"";
+    self.containerToolbar.textInputView.text = @"";
     [self setNeedsLayout];
     self.mediaAttachments = nil;
     self.attributedStringForMessageParts = nil;
@@ -338,6 +371,19 @@ static CGFloat const ATLButtonHeight = 28.0f;
 {
     // Workaround for automatic scrolling not occurring in some cases.
     [textView scrollRangeToVisible:textView.selectedRange];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+-(BOOL)becomeFirstResponder {
+    if(![self.containerToolbar.textInputView isFirstResponder]) {
+        return [self.containerToolbar.textInputView becomeFirstResponder];
+    } else {
+        return [self.textInputView becomeFirstResponder];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
@@ -396,6 +442,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
             self.rightAccessoryButton.enabled = NO;
         }
     }
+    [self.containerToolbar configureRightAccessoryButtonState];
 }
 
 - (void)configureRightAccessoryButtonForText
@@ -412,6 +459,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     } else {
         self.rightAccessoryButton.enabled = YES;
     }
+    [self.containerToolbar configureRightAccessoryButtonForText];
 }
 
 - (void)configureRightAccessoryButtonForImage
@@ -421,7 +469,8 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.rightAccessoryButton.contentEdgeInsets = UIEdgeInsetsZero;
     [self.rightAccessoryButton setTitle:nil forState:UIControlStateNormal];
     [self.rightAccessoryButton setImage:self.rightAccessoryImage forState:UIControlStateNormal];
+    
+    [self.containerToolbar configureRightAccessoryButtonForImage];
 }
-
 
 @end
