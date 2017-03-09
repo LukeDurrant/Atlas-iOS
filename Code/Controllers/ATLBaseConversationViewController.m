@@ -19,7 +19,6 @@
 //
 
 #import "ATLBaseConversationViewController.h"
-#import "ATLConversationView.h"
 
 static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) {
     return [[[UIDevice currentDevice] systemVersion] compare:systemVersion options:NSNumericSearch] == NSOrderedAscending;
@@ -27,7 +26,6 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 @interface ATLBaseConversationViewController ()
 
-@property (nonatomic) ATLConversationView *view;
 @property (nonatomic) NSMutableArray *typingParticipantIDs;
 @property (nonatomic) NSLayoutConstraint *typingIndicatorViewBottomConstraint;
 @property (nonatomic) CGFloat keyboardHeight;
@@ -36,8 +34,6 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 @end
 
 @implementation ATLBaseConversationViewController
-
-@dynamic view;
 
 static CGFloat const ATLTypingIndicatorHeight = 20;
 static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
@@ -65,11 +61,6 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     _displaysAddressBar = NO;
     _typingParticipantIDs = [NSMutableArray new];
     _firstAppearance = YES;
-}
-
-- (void)loadView
-{
-    self.view = [ATLConversationView new];
 }
 
 - (void)viewDidLoad
