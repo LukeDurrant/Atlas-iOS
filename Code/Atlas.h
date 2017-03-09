@@ -79,7 +79,6 @@
 #import "ATLConversationCollectionViewHeader.h"
 #import "ATLConversationCollectionViewMoreMessagesHeader.h"
 #import "ATLConversationTableViewCell.h"
-#import "ATLConversationView.h"
 #import "ATLIncomingMessageCollectionViewCell.h"
 #import "ATLMessageBubbleView.h"
 #import "ATLMessageCollectionViewCell.h"
