@@ -69,8 +69,6 @@
 		253C2A3D1C3C9E0000ED1549 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 253C29EC1C3C9E0000ED1549 /* ATLConversationCollectionViewMoreMessagesHeader.m */; };
 		253C2A3E1C3C9E0000ED1549 /* ATLConversationTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 253C29ED1C3C9E0000ED1549 /* ATLConversationTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		253C2A3F1C3C9E0000ED1549 /* ATLConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 253C29EE1C3C9E0000ED1549 /* ATLConversationTableViewCell.m */; };
-		253C2A401C3C9E0000ED1549 /* ATLConversationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 253C29EF1C3C9E0000ED1549 /* ATLConversationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		253C2A411C3C9E0000ED1549 /* ATLConversationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 253C29F01C3C9E0000ED1549 /* ATLConversationView.m */; };
 		253C2A421C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 253C29F11C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		253C2A431C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 253C29F21C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.m */; };
 		253C2A441C3C9E0000ED1549 /* ATLMessageBubbleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 253C29F31C3C9E0000ED1549 /* ATLMessageBubbleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -303,8 +301,6 @@
 		253C29EC1C3C9E0000ED1549 /* ATLConversationCollectionViewMoreMessagesHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionViewMoreMessagesHeader.m; sourceTree = "<group>"; };
 		253C29ED1C3C9E0000ED1549 /* ATLConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationTableViewCell.h; sourceTree = "<group>"; };
 		253C29EE1C3C9E0000ED1549 /* ATLConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationTableViewCell.m; sourceTree = "<group>"; };
-		253C29EF1C3C9E0000ED1549 /* ATLConversationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationView.h; sourceTree = "<group>"; };
-		253C29F01C3C9E0000ED1549 /* ATLConversationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationView.m; sourceTree = "<group>"; };
 		253C29F11C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLIncomingMessageCollectionViewCell.h; sourceTree = "<group>"; };
 		253C29F21C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLIncomingMessageCollectionViewCell.m; sourceTree = "<group>"; };
 		253C29F31C3C9E0000ED1549 /* ATLMessageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageBubbleView.h; sourceTree = "<group>"; };
@@ -596,8 +592,6 @@
 				253C29EC1C3C9E0000ED1549 /* ATLConversationCollectionViewMoreMessagesHeader.m */,
 				253C29ED1C3C9E0000ED1549 /* ATLConversationTableViewCell.h */,
 				253C29EE1C3C9E0000ED1549 /* ATLConversationTableViewCell.m */,
-				253C29EF1C3C9E0000ED1549 /* ATLConversationView.h */,
-				253C29F01C3C9E0000ED1549 /* ATLConversationView.m */,
 				253C29F11C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.h */,
 				253C29F21C3C9E0000ED1549 /* ATLIncomingMessageCollectionViewCell.m */,
 				253C29F31C3C9E0000ED1549 /* ATLMessageBubbleView.h */,
@@ -903,7 +897,6 @@
 				253C2A2A1C3C9E0000ED1549 /* ATLUIImageHelper.h in Headers */,
 				253C2A501C3C9E0000ED1549 /* ATLParticipantTableViewCell.h in Headers */,
 				253C2A301C3C9E0000ED1549 /* ATLAddressBarTextView.h in Headers */,
-				253C2A401C3C9E0000ED1549 /* ATLConversationView.h in Headers */,
 				253C2A541C3C9E0000ED1549 /* ATLProgressView.h in Headers */,
 				253C2A481C3C9E0000ED1549 /* ATLMessageComposeTextView.h in Headers */,
 				253C2A1B1C3C9E0000ED1549 /* ATLAvatarItem.h in Headers */,
@@ -1468,7 +1461,6 @@
 				253C2A3D1C3C9E0000ED1549 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
 				253C2A511C3C9E0000ED1549 /* ATLParticipantTableViewCell.m in Sources */,
 				253C2A081C3C9E0000ED1549 /* ATLAddressBarViewController.m in Sources */,
-				253C2A411C3C9E0000ED1549 /* ATLConversationView.m in Sources */,
 				253C2A391C3C9E0000ED1549 /* ATLConversationCollectionViewFooter.m in Sources */,
 				253C2A331C3C9E0000ED1549 /* ATLAddressBarView.m in Sources */,
 				253C2A2F1C3C9E0000ED1549 /* ATLAddressBarContainerView.m in Sources */,
