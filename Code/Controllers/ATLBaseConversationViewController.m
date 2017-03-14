@@ -368,7 +368,6 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
 
 - (void)configureMessageInputLayoutConstraints
 {
-    // Dummy Message Input
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
