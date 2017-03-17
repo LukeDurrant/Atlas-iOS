@@ -135,6 +135,8 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
         self.searchController.searchBar.delegate = self;
         self.searchController.searchBar.translucent = NO;
         self.searchController.searchBar.accessibilityLabel = @"Search Bar";
+        self.searchController.hidesNavigationBarDuringPresentation = NO;
+        
         [self.searchController.searchBar sizeToFit];
         self.tableView.tableHeaderView = self.searchController.searchBar;
         
