@@ -366,7 +366,7 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(conversationViewController:willDisplayCell:forMessage:)]) {
         LYRMessage *message = [self.conversationDataSource messageAtCollectionViewIndexPath:indexPath];
-        [self.delegate conversationViewController:self willDisplayCell:cell forMessage:message];
+        [self.delegate conversationViewController:self willDisplayCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:message];
     }
 }
 
