@@ -157,6 +157,7 @@
 		8F5A8821F40061D9FC6CBB4F /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886043CF840E83E9A77B78B /* Pods_UnitTests.framework */; };
 		917DFA240CA4D2A4EFD8C2DF /* Pods_test_StoryboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62363A00A270318F0E8C0C38 /* Pods_test_StoryboardTests.framework */; };
 		95A744011D22A9D600BED68D /* LayerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95A744001D22A9D600BED68D /* LayerKit.framework */; };
+		C66E531D1EADAE840085FA75 /* LayerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66E531C1EADAE840085FA75 /* LayerKit.framework */; };
 		D0294DE71A93F37A00702856 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0294DE61A93F37A00702856 /* Info.plist */; };
 		D0294DE81A93F39300702856 /* ATLMediaStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0294DE41A93F37000702856 /* ATLMediaStreamTests.m */; };
 		D02CDCDB1A9FFC930013CBE8 /* ATLTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D02CDCDA1A9FFC930013CBE8 /* ATLTestUtilities.m */; };
@@ -358,6 +359,7 @@
 		98BF90733247F9CE21529791 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8E39A93868BE92F637098C5 /* Pods-test-StoryboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-StoryboardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test-StoryboardTests/Pods-test-StoryboardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B085A18188DCFC913F85665D /* Pods_Programmatic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Programmatic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66E531C1EADAE840085FA75 /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = "Carthage/Checkouts/releases-ios/LayerKit.framework"; sourceTree = "<group>"; };
 		D0294DD81A93F33900702856 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0294DE41A93F37000702856 /* ATLMediaStreamTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATLMediaStreamTests.m; path = Tests/ATLMediaStreamTests.m; sourceTree = "<group>"; };
 		D0294DE61A93F37A00702856 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95A744011D22A9D600BED68D /* LayerKit.framework in Frameworks */,
+				C66E531D1EADAE840085FA75 /* LayerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +622,7 @@
 		412524007C3A7505AC34F33C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C66E531C1EADAE840085FA75 /* LayerKit.framework */,
 				95A744001D22A9D600BED68D /* LayerKit.framework */,
 				250C5EF21C7656610084EB18 /* LayerKit.framework */,
 				5DE31FA9B1906CEA04D0C891 /* Pods.framework */,
@@ -1646,6 +1650,7 @@
 					"$(inherited)",
 					"Carthage/Build/ios/**",
 					"$(PROJECT_DIR)/Pods/LayerKit",
+					"$(PROJECT_DIR)/Carthage/Checkouts/releases-ios",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1707,6 +1712,7 @@
 					"$(inherited)",
 					"Carthage/Build/ios/**",
 					"$(PROJECT_DIR)/Pods/LayerKit",
+					"$(PROJECT_DIR)/Carthage/Checkouts/releases-ios",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
