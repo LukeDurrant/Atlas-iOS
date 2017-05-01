@@ -22,4 +22,7 @@
 
 @interface LYRIdentity (ATLParticipant) <ATLParticipant>
 
+- (NSString *)avatarInitials;
+- (UIImage *)avatarImage;
+
 @end
