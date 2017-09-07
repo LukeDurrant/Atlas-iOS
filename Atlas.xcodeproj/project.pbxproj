@@ -319,8 +319,6 @@
 		3DA2FB181F1E9DF500E890FA /* ATLConversationCollectionViewMoreMessagesHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionViewMoreMessagesHeader.m; sourceTree = "<group>"; };
 		3DA2FB191F1E9DF500E890FA /* ATLConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationTableViewCell.h; sourceTree = "<group>"; };
 		3DA2FB1A1F1E9DF500E890FA /* ATLConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationTableViewCell.m; sourceTree = "<group>"; };
-		3DA2FB1B1F1E9DF500E890FA /* ATLConversationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationView.h; sourceTree = "<group>"; };
-		3DA2FB1C1F1E9DF500E890FA /* ATLConversationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationView.m; sourceTree = "<group>"; };
 		3DA2FB1D1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLIncomingMessageCollectionViewCell.h; sourceTree = "<group>"; };
 		3DA2FB1E1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLIncomingMessageCollectionViewCell.m; sourceTree = "<group>"; };
 		3DA2FB1F1F1E9DF500E890FA /* ATLMessageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageBubbleView.h; sourceTree = "<group>"; };
@@ -377,6 +375,7 @@
 		959F1869E1FC45A3651F40B6 /* Pods-test-StoryboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-StoryboardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-test-StoryboardTests/Pods-test-StoryboardTests.release.xcconfig"; sourceTree = "<group>"; };
 		95A744001D22A9D600BED68D /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = Pods/LayerKit/LayerKit.framework; sourceTree = "<group>"; };
 		98BF90733247F9CE21529791 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		9AE24F6C1F60EB0700D94340 /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = "Carthage/Checkouts/releases-ios/LayerKit.framework"; sourceTree = "<group>"; };
 		A8E39A93868BE92F637098C5 /* Pods-test-StoryboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-StoryboardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test-StoryboardTests/Pods-test-StoryboardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B085A18188DCFC913F85665D /* Pods_Programmatic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Programmatic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0294DD81A93F33900702856 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -647,6 +646,7 @@
 		412524007C3A7505AC34F33C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AE24F6C1F60EB0700D94340 /* LayerKit.framework */,
 				95A744001D22A9D600BED68D /* LayerKit.framework */,
 				250C5EF21C7656610084EB18 /* LayerKit.framework */,
 				5DE31FA9B1906CEA04D0C891 /* Pods.framework */,
@@ -933,7 +933,6 @@
 				3DA2FB3D1F1E9DF500E890FA /* ATLParticipantTableViewController.h in Headers */,
 				3DA2FB7A1F1E9DF500E890FA /* ATLMessageComposeTextView.h in Headers */,
 				3DA2FB4A1F1E9DF500E890FA /* ATLConversationPresenting.h in Headers */,
-				3DA2FB721F1E9DF500E890FA /* ATLConversationView.h in Headers */,
 				3DA2FB601F1E9DF500E890FA /* ATLAddressBarTextView.h in Headers */,
 				3DA2FB4B1F1E9DF500E890FA /* ATLMessagePresenting.h in Headers */,
 				3DA2FB351F1E9DF500E890FA /* ATLAddressBarViewController.h in Headers */,
@@ -1567,7 +1566,6 @@
 				3DA2FB421F1E9DF500E890FA /* ATLConversationDataSource.m in Sources */,
 				3DA2FB871F1E9DF500E890FA /* ATLPresenceStatusView.m in Sources */,
 				3DA2FB481F1E9DF500E890FA /* ATLParticipantTableDataSet.m in Sources */,
-				3DA2FB731F1E9DF500E890FA /* ATLConversationView.m in Sources */,
 				3DA2FB441F1E9DF500E890FA /* ATLDataSourceChange.m in Sources */,
 				3DA2FB631F1E9DF500E890FA /* ATLAddressBarView.m in Sources */,
 				3DA2FB831F1E9DF500E890FA /* ATLParticipantTableViewCell.m in Sources */,
