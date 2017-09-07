@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract Informs the delegate of a cell will be displayed for the specified message.
- @param viewController The `ATLConversationViewController` where the message cell will appear.
+ @param conversationViewController The `ATLConversationViewController` where the message cell will appear.
  @param cell The `UICollectionViewCell` object that confirms to the `ATLMessagePresenting` protocol that will be displayed in the controller.
  @param message The `LYRMessage` object that will be displayed in the cell.
  @discussion Applications should implement this method if they want add further configuration

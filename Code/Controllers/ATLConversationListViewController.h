@@ -69,13 +69,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract Informs the delegate that the content is about to change
- @param conversationListViewController The controller in which the search was performed.
+ @param viewController The controller in which the search was performed.
  */
 - (void)conversationListViewController:(ATLConversationListViewController *)viewController willChangeContent:(LYRQueryController *)queryController;
 
 /**
  @abstract Informs the delegate that the content did change
- @param conversationListViewController The controller in which the search was performed.
+ @param viewController The controller in which the search was performed.
  */
 - (void)conversationListViewController:(ATLConversationListViewController *)viewController didChangeContent:(LYRQueryController *)queryController;
 
