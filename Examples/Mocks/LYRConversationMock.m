@@ -208,4 +208,9 @@ NSString *const LYRConversationOptionsMetadataKey = @"metadata";
     return YES;
 }
 
+- (BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError * _Nullable * _Nullable)error
+{
+    return NO;
+}
+
 @end
