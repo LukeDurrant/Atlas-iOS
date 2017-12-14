@@ -229,6 +229,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9AF911851FE22C5D00F26033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0D778891A02E2B2000A5F51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DA2FABA1F1E9D9F00E890FA;
+			remoteInfo = Atlas;
+		};
+		9AF911871FE22C6100F26033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0D778891A02E2B2000A5F51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DA2FABA1F1E9D9F00E890FA;
+			remoteInfo = Atlas;
+		};
 		D6F57E431A8BE4AF00B62BD9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0D778891A02E2B2000A5F51 /* Project object */;
@@ -1017,6 +1031,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9AF911861FE22C5D00F26033 /* PBXTargetDependency */,
 			);
 			name = Programmatic;
 			productName = Programmatic;
@@ -1058,6 +1073,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9AF911881FE22C6100F26033 /* PBXTargetDependency */,
 			);
 			name = Storyboard;
 			productName = Storyboard;
@@ -1693,6 +1709,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9AF911861FE22C5D00F26033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DA2FABA1F1E9D9F00E890FA /* Atlas */;
+			targetProxy = 9AF911851FE22C5D00F26033 /* PBXContainerItemProxy */;
+		};
+		9AF911881FE22C6100F26033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DA2FABA1F1E9D9F00E890FA /* Atlas */;
+			targetProxy = 9AF911871FE22C6100F26033 /* PBXContainerItemProxy */;
+		};
 		D6F57E441A8BE4AF00B62BD9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D6F57E291A8BE4AF00B62BD9 /* Programmatic */;
