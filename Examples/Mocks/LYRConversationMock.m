@@ -184,7 +184,7 @@ NSString *const LYRConversationOptionsMetadataKey = @"metadata";
 
 #pragma mark - Typing Indicator
 
-- (void)sendTypingIndicator:(LYRTypingIndicator *)typingIndicator
+- (void)sendTypingIndicator:(LYRTypingIndicatorAction *)typingIndicator
 {
     //
 }
