@@ -112,9 +112,9 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     [super viewWillAppear:animated];
     
     // Workaround for a modal dismissal causing the message toolbar to remain offscreen on iOS 8.
-    //if (self.presentedViewController) {
-    //    [self.view becomeFirstResponder];
-    //}
+    if (self.presentedViewController) {
+        [self.view becomeFirstResponder];
+    }
     
     if (self.addressBarController && self.firstAppearance) {
         [self updateTopCollectionViewInset];
@@ -138,7 +138,7 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     // To get the toolbar to slide onscreen with the view controller's content, we have to make the view the
     // first responder here. Even so, it will not animate on iOS 8 the first time.
     if (!self.presentedViewController && self.navigationController && !self.view.inputAccessoryView.superview) {
-        //[self.view becomeFirstResponder];
+        [self.view becomeFirstResponder];
     }
     
     if (self.isFirstAppearance) {
