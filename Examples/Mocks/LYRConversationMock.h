@@ -55,4 +55,6 @@
 
 - (BOOL)markAllMessagesAsRead:(NSError **)error;
 
+- (BOOL)synchronizeMoreMessages:(NSUInteger)minimumNumberOfMessages error:(NSError **)error;
+
 @end
