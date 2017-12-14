@@ -49,7 +49,7 @@
 
 - (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath;
 
-- (void)sendTypingIndicator:(LYRTypingIndicator *)typingIndicator;
+- (void)sendTypingIndicator:(LYRTypingIndicatorAction *)typingIndicator;
 
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
 
