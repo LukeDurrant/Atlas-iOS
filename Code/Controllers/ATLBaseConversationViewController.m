@@ -225,7 +225,11 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     
     UIEdgeInsets insets = self.collectionView.contentInset;
     CGFloat keyboardHeight = self.keyboardHeight;
-    
+
+    if (self.messageInputToolbar.containerToolbar.hidden == NO) {
+        keyboardHeight += MAX(CGRectGetHeight(self.messageInputToolbar.containerToolbar.frame), 42);
+    }
+
     insets.bottom = keyboardHeight;
     self.collectionView.scrollIndicatorInsets = insets;
     self.collectionView.contentInset = insets;
