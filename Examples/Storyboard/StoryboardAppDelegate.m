@@ -34,8 +34,9 @@
     ATLUserMock *mockUser = [ATLUserMock userWithMockUserName:ATLMockUserNameBlake];
     LYRClientMock *layerClient = [LYRClientMock layerClientMockWithAuthenticatedUserID:mockUser.userID];
     [[LYRMockContentStore sharedStore] hydrateConversationsForAuthenticatedUserID:layerClient.authenticatedUserID count:1];
-    
-    UINavigationController *navigationController = (UINavigationController *)[[[application delegate] window] rootViewController];
+    UITabBarController *tabBarController = (UITabBarController *)[[[application delegate] window] rootViewController];
+
+    UINavigationController *navigationController = tabBarController.viewControllers.firstObject;
     ATLSampleConversationListViewController *controller = navigationController.viewControllers[0];
     [controller setLayerClient:(LYRClient *)layerClient];
     
