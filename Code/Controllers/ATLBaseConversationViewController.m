@@ -20,6 +20,8 @@
 
 #import "ATLBaseConversationViewController.h"
 
+#import "UIView+ATLHelpers.h"
+
 static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) {
     return [[[UIDevice currentDevice] systemVersion] compare:systemVersion options:NSNumericSearch] == NSOrderedAscending;
 }
@@ -28,7 +30,6 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 @property (nonatomic) NSMutableArray *typingParticipantIDs;
 @property (nonatomic) NSLayoutConstraint *typingIndicatorViewBottomConstraint;
-@property (nonatomic) NSLayoutConstraint *collectionViewBottomConstraint;
 @property (nonatomic) CGFloat keyboardHeight;
 @property (nonatomic, getter=isFirstAppearance) BOOL firstAppearance;
 
@@ -39,7 +40,6 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 static CGFloat const ATLTypingIndicatorHeight = 20;
 static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 static CGFloat const ATLMaxMessageInputHeight = 100;
-static CGFloat const ATLMinMessageInputHeight = 43;
 
 - (id)init
 {
@@ -87,7 +87,6 @@ static CGFloat const ATLMinMessageInputHeight = 43;
     [self.view addSubview:self.messageInputToolbar.containerToolbar];
     //no longer part of the input accessory view why? because tab bar
     self.messageInputToolbar.containerViewController = self;
-    
     self.messageInputToolbar.containerToolbar.textInputView.inputAccessoryView = self.messageInputToolbar;
     [self configureMessageInputLayoutConstraints];
     
@@ -225,7 +224,7 @@ static CGFloat const ATLMinMessageInputHeight = 43;
     [self.messageInputToolbar layoutIfNeeded];
     
     UIEdgeInsets insets = self.collectionView.contentInset;
-    CGFloat keyboardHeight = MAX(self.keyboardHeight, CGRectGetHeight(self.messageInputToolbar.containerToolbar.frame));
+    CGFloat keyboardHeight = self.keyboardHeight;
     
     insets.bottom = keyboardHeight;
     self.collectionView.scrollIndicatorInsets = insets;
@@ -347,12 +346,6 @@ static CGFloat const ATLMinMessageInputHeight = 43;
     }
     self.typingIndicatorViewBottomConstraint.constant = typingIndicatorBottomConstraintConstant;
 
-    if (self.messageInputToolbar.containerToolbar.hidden == YES) {
-        self.collectionViewBottomConstraint.constant = 0;
-    } else {
-        self.collectionViewBottomConstraint.constant = -ATLMinMessageInputHeight;
-    }
-
     [super updateViewConstraints];
 }
 
@@ -363,8 +356,7 @@ static CGFloat const ATLMinMessageInputHeight = 43;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
-    self.collectionViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-    [self.view addConstraint:self.collectionViewBottomConstraint];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
 }
 
 - (void)configureTypingIndicatorLayoutConstraints
