@@ -1600,6 +1600,9 @@
 			files = (
 				D02CDCDD1A9FFC930013CBE8 /* ATLTestUtilities.m in Sources */,
 				D0294DE81A93F39300702856 /* ATLMediaStreamTests.m in Sources */,
+				1508137A1FD826AC0069802E /* UICollectionView+ATLHelpers.m in Sources */,
+				150813791FD826AC0069802E /* UIMutableUserNotificationAction+ATLHelpers.m in Sources */,
+				150813781FD826AC0069802E /* UIView+ATLHelpers.m in Sources */,
 				D04517141A9F9A0C00E137D9 /* ATLMediaAttachmentTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
