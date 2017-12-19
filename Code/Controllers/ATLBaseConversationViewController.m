@@ -40,7 +40,6 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 static CGFloat const ATLTypingIndicatorHeight = 20;
 static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
-static CGFloat const ATLMaxMessageInputHeight = 100;
 
 - (id)init
 {
