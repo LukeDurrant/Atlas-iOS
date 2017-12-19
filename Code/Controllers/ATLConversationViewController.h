@@ -85,6 +85,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)conversationViewController:(ATLConversationViewController *)conversationViewController configureCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:(LYRMessage *)message;
 
 /**
+ @abstract Informs the delegate of a cell will be displayed for the specified message.
+ @param conversationViewController The `ATLConversationViewController` where the message cell will appear.
+ @param cell The `UICollectionViewCell` object that confirms to the `ATLMessagePresenting` protocol that will be displayed in the controller.
+ @param message The `LYRMessage` object that will be displayed in the cell.
+ @discussion Applications should implement this method if they want add further configuration
+ */
+- (void)conversationViewController:(ATLConversationViewController *)conversationViewController willDisplayCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:(LYRMessage *)message;
+
+/**
  @abstract Asks the delegate for an `NSOrderedSet` of `LYRMessage` objects representing an `NSArray` of content parts.
  @param viewController The `ATLConversationViewController` supplying the content parts.
  @param mediaAttachments The array of `ATLMediaAttachment` items supplied via user input into the `messageInputToolbar` property of the controller.
@@ -201,6 +210,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return An `LYRConversationViewController` object initialized with the given `LYRClient` object.
  */
 - (instancetype)initWithLayerClient:(LYRClient *)layerClient;
+
+- (id<ATLParticipant>)identityAsParticipant:(LYRIdentity *)identity;
 
 /**
  @abstract The `LYRClient` object used to initialize the controller.

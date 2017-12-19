@@ -95,8 +95,6 @@
 		3DA2FB6F1F1E9DF500E890FA /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2FB181F1E9DF500E890FA /* ATLConversationCollectionViewMoreMessagesHeader.m */; };
 		3DA2FB701F1E9DF500E890FA /* ATLConversationTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA2FB191F1E9DF500E890FA /* ATLConversationTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA2FB711F1E9DF500E890FA /* ATLConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2FB1A1F1E9DF500E890FA /* ATLConversationTableViewCell.m */; };
-		3DA2FB721F1E9DF500E890FA /* ATLConversationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA2FB1B1F1E9DF500E890FA /* ATLConversationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3DA2FB731F1E9DF500E890FA /* ATLConversationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2FB1C1F1E9DF500E890FA /* ATLConversationView.m */; };
 		3DA2FB741F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA2FB1D1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA2FB751F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2FB1E1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.m */; };
 		3DA2FB761F1E9DF500E890FA /* ATLMessageBubbleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA2FB1F1F1E9DF500E890FA /* ATLMessageBubbleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -612,8 +610,6 @@
 				3DA2FB181F1E9DF500E890FA /* ATLConversationCollectionViewMoreMessagesHeader.m */,
 				3DA2FB191F1E9DF500E890FA /* ATLConversationTableViewCell.h */,
 				3DA2FB1A1F1E9DF500E890FA /* ATLConversationTableViewCell.m */,
-				3DA2FB1B1F1E9DF500E890FA /* ATLConversationView.h */,
-				3DA2FB1C1F1E9DF500E890FA /* ATLConversationView.m */,
 				3DA2FB1D1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.h */,
 				3DA2FB1E1F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.m */,
 				3DA2FB1F1F1E9DF500E890FA /* ATLMessageBubbleView.h */,

@@ -67,6 +67,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)conversationListViewController:(ATLConversationListViewController *)conversationListViewController didSearchForText:(NSString *)searchText completion:(void (^)(NSSet <id<ATLParticipant>>*filteredParticipants))completion;
 
+/**
+ @abstract Informs the delegate that the content is about to change
+ @param viewController The controller in which the search was performed.
+ */
+- (void)conversationListViewController:(ATLConversationListViewController *)viewController willChangeContent:(LYRQueryController *)queryController;
+
+/**
+ @abstract Informs the delegate that the content did change
+ @param viewController The controller in which the search was performed.
+ */
+- (void)conversationListViewController:(ATLConversationListViewController *)viewController didChangeContent:(LYRQueryController *)queryController;
+
 @end
 
 ///---------------------------------------

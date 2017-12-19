@@ -499,6 +499,10 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
 
 - (void)queryControllerWillChangeContent:(LYRQueryController *)queryController
 {
+    if ([self.delegate respondsToSelector:@selector(conversationListViewController:willChangeContent:)]) {
+        [self.delegate conversationListViewController:self willChangeContent:queryController];
+    }
+    
     LYRConversation *selectedConversation;
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if (indexPath) {
@@ -552,6 +556,9 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
             [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
         self.conversationSelectedBeforeContentChange = nil;
+    }
+    if ([self.delegate respondsToSelector:@selector(conversationListViewController:didChangeContent:)]) {
+        [self.delegate conversationListViewController:self didChangeContent:queryController];
     }
 }
 

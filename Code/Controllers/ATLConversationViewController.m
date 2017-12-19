@@ -27,7 +27,6 @@
 #import "ATLConstants.h"
 #import "ATLDataSourceChange.h"
 #import "ATLMessagingUtilities.h"
-#import "ATLConversationView.h"
 #import "ATLConversationDataSource.h"
 #import "ATLMediaAttachment.h"
 #import "ATLLocationManager.h"
@@ -358,6 +357,16 @@ static NSInteger const ATLPhotoActionSheet = 1000;
         [self.delegate conversationViewController:self configureCell:cell forMessage:message];
     }
     return cell;
+}
+
+/**
+ Atlas - will display a subclass of `ATLMessageCollectionViewCell` to be displayed on screen. `Atlas` supports both `ATLIncomingMessageCollectionViewCell` and `ATLOutgoingMessageCollectionViewCell`.
+ */
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(conversationViewController:willDisplayCell:forMessage:)]) {
+        LYRMessage *message = [self.conversationDataSource messageAtCollectionViewIndexPath:indexPath];
+        [self.delegate conversationViewController:self willDisplayCell:(UICollectionViewCell<ATLMessagePresenting> *)cell forMessage:message];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -1157,7 +1166,11 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 
 #pragma mark - Data Source
 
-- (id<ATLParticipant>)participantForIdentity:(LYRIdentity *)identity;
+- (id<ATLParticipant>)identityAsParticipant:(LYRIdentity *)identity {
+    return identity;
+}
+
+- (id<ATLParticipant>)participantForIdentity:(LYRIdentity *)identity
 {
     if ([self.dataSource respondsToSelector:@selector(conversationViewController:participantForIdentity:)]) {
         return [self.dataSource conversationViewController:self participantForIdentity:identity];

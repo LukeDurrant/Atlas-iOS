@@ -19,7 +19,8 @@
 //
 
 #import "ATLBaseConversationViewController.h"
-#import "ATLConversationView.h"
+
+#import "UIView+ATLHelpers.h"
 
 static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) {
     return [[[UIDevice currentDevice] systemVersion] compare:systemVersion options:NSNumericSearch] == NSOrderedAscending;
@@ -27,17 +28,15 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 
 @interface ATLBaseConversationViewController ()
 
-@property (nonatomic) ATLConversationView *view;
 @property (nonatomic) NSMutableArray *typingParticipantIDs;
 @property (nonatomic) NSLayoutConstraint *typingIndicatorViewBottomConstraint;
 @property (nonatomic) CGFloat keyboardHeight;
+@property (nonatomic) CGFloat containerToolbarSafeInsetBottom;
 @property (nonatomic, getter=isFirstAppearance) BOOL firstAppearance;
 
 @end
 
 @implementation ATLBaseConversationViewController
-
-@dynamic view;
 
 static CGFloat const ATLTypingIndicatorHeight = 20;
 static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
@@ -67,23 +66,11 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     _firstAppearance = YES;
 }
 
-- (void)loadView
-{
-    self.view = [ATLConversationView new];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Add message input tool bar
-    self.messageInputToolbar = [self initializeMessageInputToolbar];
-    // Fixes an ios9 bug that causes the background of the input accessory view to be black when being presented on screen.
-    self.messageInputToolbar.translucent = NO;
-    // An apparent system bug causes a view controller to not be deallocated
-    // if the view controller's own inputAccessoryView property is used.
-    self.view.inputAccessoryView = self.messageInputToolbar;
-    self.messageInputToolbar.containerViewController = self;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // Add typing indicator
     self.typingIndicatorController = [[ATLTypingIndicatorViewController alloc] init];
@@ -111,11 +98,12 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     // Workaround for a modal dismissal causing the message toolbar to remain offscreen on iOS 8.
     if (self.presentedViewController) {
         [self.view becomeFirstResponder];
     }
+    
     if (self.addressBarController && self.firstAppearance) {
         [self updateTopCollectionViewInset];
     }
@@ -134,7 +122,7 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-
+    
     // To get the toolbar to slide onscreen with the view controller's content, we have to make the view the
     // first responder here. Even so, it will not animate on iOS 8 the first time.
     if (!self.presentedViewController && self.navigationController && !self.view.inputAccessoryView.superview) {
@@ -225,8 +213,8 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     [self.messageInputToolbar layoutIfNeeded];
     
     UIEdgeInsets insets = self.collectionView.contentInset;
-    CGFloat keyboardHeight = MAX(self.keyboardHeight, CGRectGetHeight(self.messageInputToolbar.frame));
-    
+    CGFloat keyboardHeight = self.keyboardHeight;
+    }
     insets.bottom = keyboardHeight + self.typingIndicatorInset;
     self.collectionView.scrollIndicatorInsets = insets;
     self.collectionView.contentInset = insets;
@@ -343,6 +331,7 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
         }
     }
     self.typingIndicatorViewBottomConstraint.constant = typingIndicatorBottomConstraintConstant;
+
     [super updateViewConstraints];
 }
 
