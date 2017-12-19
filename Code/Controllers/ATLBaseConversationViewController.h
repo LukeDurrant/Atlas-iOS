@@ -55,6 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, null_unspecified) UICollectionView *collectionView;
 
+/**
+ @abstract The `UICollectionView` topLayout contraint
+ @discussion Subclasses exposing this so that you can add a header view to the top of the collection view
+ */
+
+@property (nonatomic, nullable) NSLayoutConstraint *collectionViewTopConstraint;
+
 ///----------------------------------------------
 /// @name Configuring View Options
 ///----------------------------------------------
