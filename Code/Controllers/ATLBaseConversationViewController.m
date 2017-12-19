@@ -31,6 +31,7 @@ static inline BOOL atl_systemVersionLessThan(NSString * _Nonnull systemVersion) 
 @property (nonatomic) NSMutableArray *typingParticipantIDs;
 @property (nonatomic) NSLayoutConstraint *typingIndicatorViewBottomConstraint;
 @property (nonatomic) CGFloat keyboardHeight;
+@property (nonatomic) CGFloat containerToolbarSafeInsetBottom;
 @property (nonatomic, getter=isFirstAppearance) BOOL firstAppearance;
 
 @end
@@ -140,6 +141,11 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
         [self.view becomeFirstResponder];
     }
     
+    UIEdgeInsets safeAreaInsets = [self.messageInputToolbar.containerToolbar atl_safeAreaInsets];
+    self.containerToolbarSafeInsetBottom = safeAreaInsets.bottom;
+
+    [self updateBottomCollectionViewInset];
+
     if (self.isFirstAppearance) {
         self.firstAppearance = NO;
         // We use the content size of the actual collection view when calculating the ammount to scroll. Hence, we layout the collection view before scrolling to the bottom.
@@ -224,14 +230,17 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     [self.messageInputToolbar layoutIfNeeded];
     
     UIEdgeInsets insets = self.collectionView.contentInset;
+    UIEdgeInsets scrollInsets = self.collectionView.contentInset;
     CGFloat keyboardHeight = self.keyboardHeight;
-
-    if (self.messageInputToolbar.containerToolbar.hidden == NO) {
-        keyboardHeight += MAX(CGRectGetHeight(self.messageInputToolbar.containerToolbar.frame), 42);
+    CGFloat scrollKeyboardHeight = self.keyboardHeight;
+    if(self.messageInputToolbar.containerToolbar.isHidden == NO) {
+        CGFloat messageInputToolbarHeight = CGRectGetHeight(self.messageInputToolbar.containerToolbar.textInputView.frame) + (self.messageInputToolbar.containerToolbar.verticalMargin * 2) + self.containerToolbarSafeInsetBottom;
+        keyboardHeight += messageInputToolbarHeight;
+        scrollKeyboardHeight -= self.containerToolbarSafeInsetBottom;
     }
-
+    scrollInsets.bottom = scrollKeyboardHeight;
     insets.bottom = keyboardHeight;
-    self.collectionView.scrollIndicatorInsets = insets;
+    self.collectionView.scrollIndicatorInsets = scrollInsets;
     self.collectionView.contentInset = insets;
     self.typingIndicatorViewBottomConstraint.constant = -keyboardHeight;
 }
@@ -333,7 +342,7 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     CGFloat contentSizeHeight = contentSize.height;
     CGFloat collectionViewFrameHeight = self.collectionView.frame.size.height;
     CGFloat collectionViewBottomInset = self.collectionView.contentInset.bottom;
-    CGFloat collectionViewTopInset = self.collectionView.contentInset.top;
+    CGFloat collectionViewTopInset = self.collectionView.contentInset.top + self.containerToolbarSafeInsetBottom;
     CGPoint offset = CGPointMake(0, MAX(-collectionViewTopInset, contentSizeHeight - (collectionViewFrameHeight - collectionViewBottomInset)));
     return offset;
 }
@@ -379,7 +388,6 @@ static CGFloat const ATLMaxMessageInputHeight = 100;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:ATLMaxMessageInputHeight]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.messageInputToolbar.containerToolbar attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
 }
 
