@@ -35,13 +35,17 @@ static BOOL ATLIsRunningTests()
         // NB: only hydrate a conversation with a random user when it's not test related, to avoid odd collisions
         [[LYRMockContentStore sharedStore] hydrateConversationsForAuthenticatedUserID:layerClient.authenticatedUserID count:1];
 
-        controller = [ATLSampleConversationListViewController conversationListViewControllerWithLayerClient:(LYRClient *)layerClient];
+        ATLConversationListViewController *conversationController = [ATLSampleConversationListViewController conversationListViewControllerWithLayerClient:(LYRClient *)layerClient];
+        conversationController.title = @"Conversation";
+        conversationController.tabBarItem = [[UITabBarItem alloc]initWithTabBarSystemItem:UITabBarSystemItemRecents tag:2];
+
+        UITabBarController *tabController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+        tabController.viewControllers = [[NSArray alloc] initWithObjects:conversationController, nil];
+        controller = tabController;
         controller.view.backgroundColor = [UIColor whiteColor];
     }
-    UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = rootViewController;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
     [self.window makeKeyAndVisible];
     
     return YES;
