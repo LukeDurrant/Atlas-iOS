@@ -1,6 +1,6 @@
 PODS:
   - Atlas (1.2.0):
-    - LayerKit (~> 4.0.2)
+    - LayerKit (~> 4.0.0)
   - Expecta (1.0.5)
   - KIF (3.7.0):
     - KIF/Core (= 3.7.0)
@@ -39,7 +39,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/layerhq/LYRCountDownLatch.git
 
 SPEC CHECKSUMS:
-  Atlas: 23d955c80e584e2646b8840a2524cfd904ac4d1c
+  Atlas: 862849c658a53f9cf71251b79d5d4c72b09df706
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   KIF: 1b3a52314e7f0fb46585221724e183fec8785221
   KIFViewControllerActions: 923795dc4bd4ca5657841ce7455ce67447693861

@@ -40,12 +40,12 @@ static BOOL ATLIsRunningTests()
         conversationController.tabBarItem = [[UITabBarItem alloc]initWithTabBarSystemItem:UITabBarSystemItemRecents tag:2];
 
         UITabBarController *tabController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
-        tabController.viewControllers = [[NSArray alloc] initWithObjects:conversationController, nil];
+        tabController.viewControllers = [[NSArray alloc] initWithObjects:[[UINavigationController alloc] initWithRootViewController:conversationController], nil];
         controller = tabController;
         controller.view.backgroundColor = [UIColor whiteColor];
     }
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
     return YES;
